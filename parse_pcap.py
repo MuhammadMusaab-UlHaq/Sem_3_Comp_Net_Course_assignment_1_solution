@@ -1,3 +1,4 @@
+import argparse
 from scapy.all import rdpcap, TCP, UDP, IP
 import collections
 
@@ -24,10 +25,8 @@ def parse_pcap(filename):
             
             if packet.haslayer(TCP):
                 port = packet[TCP].dport
-                print(f"TCP.dst_port = {port}")
             elif packet.haslayer(UDP):
                 port = packet[UDP].dport
-                print(f"UDP.dst_port = {port}")
 
             if port is not None:
                 # add port count
@@ -56,5 +55,7 @@ def parse_pcap(filename):
 
 
 if __name__ == "__main__":
-    FILENAME = "tests/slowdownload.pcap"
-    parse_pcap(FILENAME)
+    parser = argparse.ArgumentParser(description="Parse a PCAP file to analyze TCP/UDP destination ports.")
+    parser.add_argument("filename", help="The path to the .pcap file to analyze.")
+    args = parser.parse_args()
+    parse_pcap(args.filename)
