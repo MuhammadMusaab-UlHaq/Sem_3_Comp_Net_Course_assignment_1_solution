@@ -1,1 +1,6 @@
 venv/
+
+# Windows system files
+desktop.ini
+Thumbs.db
+*.tmp
