@@ -12,29 +12,34 @@ def parse_pcap(filename):
         print(f"Error: The file '{filename}' was not found.")
         return
 
-    dest_ports = []
+    # using dictionary for storing frequencies
+    port_counts = {}
 
     for packet in packets:
-        # check for tcp layer and extract destination port
+        port = None
         if packet.haslayer(TCP):
             port = packet[TCP].dport
-            dest_ports.append(port)
-            # this line is strictly here as the original program also has this
             print(f"TCP.dst_port = {port}")
-
-        # check for udp layer and extract destination port
         elif packet.haslayer(UDP):
             port = packet[UDP].dport
-            dest_ports.append(port)
-            # this line is strictly here as the original program also has this
             print(f"UDP.dst_port = {port}")
-    
-    # we find all the unique ports by using the property of sets 
-    # and then just convert the set into a list and then sort it.
-    unique_ports = sorted(list(set(dest_ports)))
-    
-    print("\n--- Summary ---")
-    print(f"Unique Destination Ports: {unique_ports}")
+
+        if port is not None:
+            # incrementing frequency if found
+            port_counts[port] = port_counts.get(port, 0) + 1
+
+    # summary time
+    print("\n--- Destination Port Frequency (Sorted) ---")
+
+    # sort the ports and then print them one by one.
+    sorted_ports = sorted(port_counts.keys())
+
+    if not sorted_ports:
+        print("No TCP or UDP packets found.")
+    else:
+        for port in sorted_ports:
+            count = port_counts[port]
+            print(f"Port {port} -> {count} packets")
 
 
 if __name__ == "__main__":
