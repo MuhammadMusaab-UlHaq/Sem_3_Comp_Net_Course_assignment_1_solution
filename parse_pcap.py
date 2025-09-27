@@ -12,6 +12,10 @@ def parse_pcap(filename):
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
         return
+    except Exception as e:
+        print(f"Error: Failed to read or parse the file '{filename}'.")
+        print(f"Details: {e}")
+        return
 
     # using dictionaries for storing frequencies
     port_counts = {}
