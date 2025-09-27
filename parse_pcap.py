@@ -1,3 +1,22 @@
+
+# =============================================================================
+# Assignment 1 – Parsing PCAP Files
+# Partner 1:  Hamza Muhammad Iqbal (503052)
+# Partner 2:  Muhammad Musaab Ul Haq (501739)
+#
+# Learnings & Challenges:
+#  We learned to use the Scapy library in Python to parse network capture files.
+#  A key learning was how to iterate through packets and access specific protocol 
+#  layers like IP, TCP, and UDP to extract headers such as destination port and IP.
+#  We also practiced using dictionaries for frequency counting, which is very 
+#  efficient.
+#  A challenge was setting up the environment and understanding how to access
+#  Scapy's layered packet objects, but this became clear once we saw scapy 
+#  documentation [https://scapy.readthedocs.io/].
+#  Implementing command-line arguments with `argparse` was a new skill that made 
+#  our script much more professional and reusable.
+# =============================================================================
+
 import argparse
 from scapy.all import rdpcap, TCP, UDP, IP
 import collections
